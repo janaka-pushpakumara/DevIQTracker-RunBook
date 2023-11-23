@@ -1,0 +1,53 @@
+server:
+  port: 9090
+debug: true
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8085/eureka}
+
+spring:
+  application:
+    name: apigatewayservice
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      default-filters:
+        - StripPrefix=2
+        - name: Retry
+          args:
+            retries: 3
+            methods: GET
+            series: SERVER_ERROR
+            backoff:
+              firstBackoff: 50ms
+              maxBackoff: 500ms
+              factor: 2
+              basedOnPreviousValue: false
+      routes:
+        - id: project-service
+          uri: lb://project-service
+          predicates:
+            - Path=/gateway/projectservice/**
+          filters:
+           - AuthenticationFilter
+
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/gateway/authservice/**
+          filters:
+           - AuthenticationFilter
+
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/gateway/userservice/**
+          filters:
+           - AuthenticationFilter
+            
