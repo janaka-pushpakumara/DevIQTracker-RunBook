@@ -45,4 +45,6 @@ public class GitController {
 	public ArrayList<Object> hourlyCommitCount(@PathVariable("owner") String owner, @PathVariable("repo") String repo) {
 		return service.getHourlyCommitCount(owner, repo);
 	}
+	
+	
 }
