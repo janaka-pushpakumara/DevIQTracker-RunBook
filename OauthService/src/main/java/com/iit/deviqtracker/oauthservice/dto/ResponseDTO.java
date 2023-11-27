@@ -1,4 +1,4 @@
-package com.iit.deviqtracker.projectservice.dto.common;
+package com.iit.deviqtracker.oauthservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

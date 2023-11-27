@@ -1,6 +1,7 @@
 package com.iit.deviqtracker.oauthservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iit.deviqtracker.oauthservice.dto.AuthRequestDto;
+import com.iit.deviqtracker.oauthservice.dto.ResponseDTO;
+import com.iit.deviqtracker.oauthservice.dto.UserDetailsDto;
 import com.iit.deviqtracker.oauthservice.entity.UserCredential;
 import com.iit.deviqtracker.oauthservice.service.AuthService;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class AuthController {
 
 	@Autowired
@@ -25,8 +29,9 @@ public class AuthController {
 	}
 	
 	@PostMapping("/token")
-	public String getToken(@RequestBody AuthRequestDto authRequest) {
-		return authService.generateToken(authRequest.getUsername());
+	public ResponseDTO getToken(@RequestBody UserDetailsDto user) {
+		System.out.println("/token is calling.");
+		return authService.generateToken(user);
 	}
 	
 	@GetMapping("/validate")

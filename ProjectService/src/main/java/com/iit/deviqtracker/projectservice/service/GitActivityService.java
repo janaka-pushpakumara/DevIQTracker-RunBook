@@ -48,10 +48,10 @@ public class GitActivityService {
 				weekSummaryOfCommitCountDTOList.add(weekSummaryOfCommitCountDTO);
 
 			}
-			return new ResponseDTO(weekSummaryOfCommitCountDTOList, "success", "1", "");
+			return new ResponseDTO(weekSummaryOfCommitCountDTOList, "success", 1, "");
 
 		} catch (Exception e) {
-			return new ResponseDTO(null, "error", "0", e.getMessage());
+			return new ResponseDTO(null, "error", 0, e.getMessage());
 		}
 
 	}
@@ -82,10 +82,10 @@ public class GitActivityService {
 				}
 				weekCommitActivitySummaryDTOList.add(weekCommitActivitySummaryDTO);
 			}
-			return new ResponseDTO(weekCommitActivitySummaryDTOList, "success", "1", "");
+			return new ResponseDTO(weekCommitActivitySummaryDTOList, "success", 1, "");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseDTO(null, "error", "0", e.getMessage());
+			return new ResponseDTO(null, "error", 0, e.getMessage());
 		}
 
 	}
