@@ -2,7 +2,7 @@ spring:
   application:
     name: eurekaservice
 server:
-  port: 8085
+  port: 9091
 eureka:
   instance:
   hostname: localhost

@@ -23,12 +23,12 @@ public class GitActivitryController {
 	private GitActivityService activityService;
 	
 
-	@GetMapping("/dashboard/{owner}/{repo}/summary/week/commit/count")
+	@GetMapping("/dashboard/{owner}/{repo}/week/commit/count")
 	public ResponseDTO weekCommitCountSummary(@PathVariable("owner") String owner, @PathVariable("repo") String repo) {
 		return activityService.handleWeekCommitCountSummary(owner, repo);
 	}
 	
-	@GetMapping("/dashboard/{owner}/{repo}/summary/week/commit/activity")
+	@GetMapping("/dashboard/{owner}/{repo}/week/commit/activity")
 	public ResponseDTO weekCommitActivitySummary(@PathVariable("owner") String owner, @PathVariable("repo") String repo) {
 		return activityService.handleWeekCommitActivitySummary(owner, repo);
 	}

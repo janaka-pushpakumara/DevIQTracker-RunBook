@@ -48,7 +48,11 @@
     		<groupId>org.springframework.cloud</groupId>
     		<artifactId>spring-cloud-starter-feign</artifactId>
     	<version>1.4.7.RELEASE</version>
-</dependency>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -80,6 +84,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>project-service-docker</finalName>
 	</build>
 
 </project>

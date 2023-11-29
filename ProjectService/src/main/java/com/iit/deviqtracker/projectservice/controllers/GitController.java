@@ -12,36 +12,36 @@ import com.iit.deviqtracker.projectservice.dto.GitYearCommitDTO;
 import com.iit.deviqtracker.projectservice.dto.contributors.GitContributorsDTO;
 import com.iit.deviqtracker.projectservice.service.GitService;
 
-@RestController
+@RestController("/repos")
 public class GitController {
 
 	@Autowired
 	private GitService service;
 
-	@GetMapping("/repos/{owner}/{repo}/stats/contributors")
+	@GetMapping("/{owner}/{repo}/stats/contributors")
 	public List<GitContributorsDTO> repoContributores(@PathVariable("owner") String owner,
 			@PathVariable("repo") String repo) {
 		return service.getContributors(owner, repo);
 	}
 
-	@GetMapping("/repos/{owner}/{repo}/stats/commit_activity")
+	@GetMapping("/{owner}/{repo}/stats/commit_activity")
 	public List<GitYearCommitDTO> yearCommitActivity(@PathVariable("owner") String owner,
 			@PathVariable("repo") String repo) {
 		return service.getGitYearCommitActivities(owner, repo);
 	}
 
-	@GetMapping("/repos/{owner}/{repo}/stats/code_frequency")
+	@GetMapping("/{owner}/{repo}/stats/code_frequency")
 	public ArrayList<Object> weeklyCommitActivity(@PathVariable("owner") String owner,
 			@PathVariable("repo") String repo) {
 		return service.getWeeklyCommitActivities(owner, repo);
 	}
 
-	@GetMapping("/repos/{owner}/{repo}/stats/participation")
+	@GetMapping("/{owner}/{repo}/stats/participation")
 	public Object weekCommitCount(@PathVariable("owner") String owner, @PathVariable("repo") String repo) {
 		return service.getWeeklyCommitCount(owner, repo);
 	}
 
-	@GetMapping("/repos/{owner}/{repo}/stats/punch_card")
+	@GetMapping("/{owner}/{repo}/stats/punch_card")
 	public ArrayList<Object> hourlyCommitCount(@PathVariable("owner") String owner, @PathVariable("repo") String repo) {
 		return service.getHourlyCommitCount(owner, repo);
 	}
