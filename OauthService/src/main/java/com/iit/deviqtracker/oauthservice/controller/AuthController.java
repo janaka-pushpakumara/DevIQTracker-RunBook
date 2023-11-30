@@ -17,7 +17,7 @@ import com.iit.deviqtracker.oauthservice.service.AuthService;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
 	@Autowired
