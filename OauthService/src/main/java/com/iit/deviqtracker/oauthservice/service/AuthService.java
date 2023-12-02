@@ -1,5 +1,7 @@
 package com.iit.deviqtracker.oauthservice.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,8 +42,8 @@ public class AuthService {
 		jwtService.validateToken(token);
 	}
 	
-//	public UserDetailsDto getUserCredentialByUsername(String userName) {
-//		
-//	}
+	public UserCredential getUserCredentialByUsername(String userName) {
+		return userCredRepository.findByName(userName);
+	}
 
 }

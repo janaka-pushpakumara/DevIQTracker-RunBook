@@ -2,6 +2,8 @@ package com.iit.deviqtracker.projectservice.service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +44,13 @@ public class GitActivityService {
 				}
 				weekSummaryOfCommitCountDTO.setOwnerId(owner);
 				weekSummaryOfCommitCountDTO.setRepoId(repo);
-				weekSummaryOfCommitCountDTO.setWeekId(String.valueOf(i));
+				weekSummaryOfCommitCountDTO.setWeekId(String.valueOf(allCommitCount.size() - i));
 				weekSummaryOfCommitCountDTO.setCommitCountAll(String.valueOf(Math.round(count1)));
 				weekSummaryOfCommitCountDTO.setCommitCountOwner(String.valueOf(Math.round(count2)));
 				weekSummaryOfCommitCountDTOList.add(weekSummaryOfCommitCountDTO);
 
 			}
+			Collections.reverse(weekSummaryOfCommitCountDTOList);
 			return new ResponseDTO(weekSummaryOfCommitCountDTOList, "success", 1, "");
 
 		} catch (Exception e) {
@@ -72,7 +75,7 @@ public class GitActivityService {
 				WeekCommitActivitySummaryDTO weekCommitActivitySummaryDTO = new WeekCommitActivitySummaryDTO();
 				weekCommitActivitySummaryDTO.setOwnerId(owner);
 				weekCommitActivitySummaryDTO.setRepoId(repo);
-				weekCommitActivitySummaryDTO.setWeekId(String.valueOf(weekID));
+				weekCommitActivitySummaryDTO.setWeekId(String.valueOf(new Date((long)weekID*1000)));
 				weekCommitActivitySummaryDTO.setAdditionCount(String.valueOf(addition));
 				weekCommitActivitySummaryDTO.setDeletionCount(String.valueOf(deletion));
 				if (addition != 0) {
@@ -82,6 +85,7 @@ public class GitActivityService {
 				}
 				weekCommitActivitySummaryDTOList.add(weekCommitActivitySummaryDTO);
 			}
+			Collections.reverse(weekCommitActivitySummaryDTOList);
 			return new ResponseDTO(weekCommitActivitySummaryDTOList, "success", 1, "");
 		} catch (Exception e) {
 			e.printStackTrace();
