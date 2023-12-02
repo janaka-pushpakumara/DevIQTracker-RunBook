@@ -2,12 +2,12 @@ spring:
   application:
     name: project-service
 server:
-  port: 8085
+  port: 9095
 eureka:
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:9091/eureka}
+      defaultZone: ${EUREKA_URI:http://localhost:9090/eureka}
   instance:
     preferIpAddress: true

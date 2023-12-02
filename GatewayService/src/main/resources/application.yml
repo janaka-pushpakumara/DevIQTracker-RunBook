@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 9091
 debug: true
 
 eureka:
@@ -7,7 +7,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:9091/eureka}
+      defaultZone: ${EUREKA_URI:http://localhost:9090/eureka}
 
 spring:
   application:

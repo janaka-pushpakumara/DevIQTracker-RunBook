@@ -60,6 +60,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>eureka-service-docker</finalName>
 	</build>
 
 </project>
