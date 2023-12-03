@@ -1,4 +1,4 @@
 FROM openjdk:8
-EXPOSE 8080
-ADD target/eureka-service-docker.jar eureka-service-docker.jar
-ENTRYPOINT ["java","-jar","/eureka-service-docker.jar"]
+EXPOSE 9090
+ADD target/eurekaservice.jar eurekaservice.jar
+ENTRYPOINT ["java","-jar","/eurekaservice.jar"]

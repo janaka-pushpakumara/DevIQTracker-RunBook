@@ -84,7 +84,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>project-service-docker</finalName>
+		<finalName>projectservice</finalName>
 	</build>
 
 </project>
