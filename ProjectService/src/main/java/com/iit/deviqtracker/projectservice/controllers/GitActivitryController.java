@@ -16,7 +16,6 @@ import com.iit.deviqtracker.projectservice.service.GitActivityService;
 import com.iit.deviqtracker.projectservice.service.GitService;
 
 @RestController
-@CrossOrigin(origins = "*")
 public class GitActivitryController {
 	
 	@Autowired

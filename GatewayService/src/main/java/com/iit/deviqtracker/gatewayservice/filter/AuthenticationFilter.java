@@ -17,6 +17,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 	@Autowired
 	private RouteValidator validator;
 
+	@Autowired
 	private JwtUtil jwtUtil;
 
 	public AuthenticationFilter() {
@@ -45,9 +46,9 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 //                    //REST call to AUTH service
 //                    template.getForObject("http://IDENTITY-SERVICE//validate?token" + authHeader, String.class);
 					jwtUtil.validateToken(authHeader);
-
+					System.out.println("Successfuly token validated!!!");
 				} catch (Exception e) {
-					System.out.println("invalid access...!");
+					System.out.println("invalid access...!" + e);
 					throw new RuntimeException("un authorized access to application");
 				}
 			}

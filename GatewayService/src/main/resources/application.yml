@@ -13,7 +13,6 @@ spring:
   application:
     name: apigatewayservice
   cloud:
-    gateway:
       discovery:
         locator:
           enabled: true
@@ -29,6 +28,8 @@ spring:
               maxBackoff: 500ms
               factor: 2
               basedOnPreviousValue: false
+      globalcors:
+        add-to-simple-url-handler-mapping: true
       routes:
         - id: project-service
           uri: lb://project-service
@@ -41,13 +42,6 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/gateway/authservice/**
-          filters:
-           - AuthenticationFilter
-
-        - id: user-service
-          uri: lb://user-service
-          predicates:
-            - Path=/gateway/userservice/**
           filters:
            - AuthenticationFilter
             

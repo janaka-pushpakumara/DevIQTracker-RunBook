@@ -13,22 +13,22 @@ import com.iit.deviqtracker.oauthservice.repository.UserCredentialRepository;
 
 @Service
 public class AuthService {
-	
+
 	@Autowired
 	private UserCredentialRepository userCredRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private JwtService jwtService;
-	
+
 	public String saveUser(UserCredential userCredential) {
 		userCredential.setPassword(passwordEncoder.encode(userCredential.getPassword()));
 		userCredRepository.save(userCredential);
 		return "Successfully user added to the system";
 	}
-	
+
 	public ResponseDTO generateToken(UserDetailsDto user) {
 		ResponseDTO responseDTO = new ResponseDTO();
 		user.setToken(jwtService.generateToken(user.getUsername()));
@@ -37,13 +37,20 @@ public class AuthService {
 		responseDTO.setData(user);
 		return responseDTO;
 	}
-	
+
 	public void validateToken(String token) {
 		jwtService.validateToken(token);
 	}
-	
-	public UserCredential getUserCredentialByUsername(String userName) {
-		return userCredRepository.findByName(userName);
+
+	public String getUserCredentialByUsername(String userName) {
+		Optional<UserCredential> user = userCredRepository.findById(userName);
+		System.out.println("USER: " + user);
+		if (!user.isEmpty()) {
+			return "user exists.";
+		} else {
+			return "user not exists.";
+		}
+
 	}
 
 }

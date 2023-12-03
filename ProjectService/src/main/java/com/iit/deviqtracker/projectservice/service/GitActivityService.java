@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,10 @@ import com.iit.deviqtracker.projectservice.dto.GitWeekCommitCountDTO;
 import com.iit.deviqtracker.projectservice.dto.common.ResponseDTO;
 import com.iit.deviqtracker.projectservice.dto.common.SummaryDTO;
 import com.iit.deviqtracker.projectservice.dto.common.WeekCommitActivitySummaryDTO;
+import com.iit.deviqtracker.projectservice.entity.CommitActivity;
+import com.iit.deviqtracker.projectservice.entity.CommitCount;
+import com.iit.deviqtracker.projectservice.repository.CommitActiviryRepository;
+import com.iit.deviqtracker.projectservice.repository.CommitCountRepository;
 
 @Service
 public class GitActivityService {
@@ -20,9 +25,46 @@ public class GitActivityService {
 	@Autowired
 	private GitService gitServcie;
 
+	@Autowired
+	private CommitCountRepository commitCountRepository;
+
+	@Autowired
+	private CommitActiviryRepository commitActiviryRepository;
+
 	public ResponseDTO handleWeekCommitCountSummary(String owner, String repo) {
 
-		GitWeekCommitCountDTO weekCommitCount = gitServcie.getWeeklyCommitCount(owner, repo);
+		String collection_id = owner + repo;
+		GitWeekCommitCountDTO weekCommitCount = null;
+
+		try {
+			
+			weekCommitCount = gitServcie.getWeeklyCommitCount(owner, repo);
+			if (weekCommitCount != null && !weekCommitCount.getAll().isEmpty()) {
+				// save to db
+				commitCountRepository.save(new CommitCount(collection_id, weekCommitCount));
+			}
+
+		} catch (Exception e) {
+			System.out.println("cant save commit count in DB, commit count list is NULL " + e);
+		}
+
+		try {
+
+			if (weekCommitCount == null) {
+				Optional<CommitCount> data = commitCountRepository.findById(collection_id);
+				System.out.println(data);
+				weekCommitCount = data.get().getData();
+
+				if (!data.isPresent()) {
+					return new ResponseDTO(null, "error", 0, "No records in DB");
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println("cant retrive data for commit_count table in DB : " + e);
+			return new ResponseDTO(null, "error", 0, e.getMessage());
+		}
+
 		List<Integer> allCommitCount = weekCommitCount.getAll();
 		List<Integer> ownerCommitCount = weekCommitCount.getOwner();
 		DecimalFormat df = new DecimalFormat("#.##");
@@ -51,6 +93,7 @@ public class GitActivityService {
 
 			}
 			Collections.reverse(weekSummaryOfCommitCountDTOList);
+
 			return new ResponseDTO(weekSummaryOfCommitCountDTOList, "success", 1, "");
 
 		} catch (Exception e) {
@@ -61,7 +104,37 @@ public class GitActivityService {
 
 	public ResponseDTO handleWeekCommitActivitySummary(String owner, String repo) {
 
-		ArrayList<Object> weekCommitActivityList = gitServcie.getWeeklyCommitActivities(owner, repo);
+		ArrayList<Object> weekCommitActivityList = null;
+		String collection_id = owner + repo;
+
+		try {
+			weekCommitActivityList = gitServcie.getWeeklyCommitActivities(owner, repo);
+			if (weekCommitActivityList != null && !weekCommitActivityList.isEmpty()) {
+				// save to db
+				commitActiviryRepository.save(new CommitActivity(collection_id, weekCommitActivityList));
+			}
+
+		} catch (Exception e) {
+			System.out.println("cant save commit count in DB, Activity list is NULL " + e);
+		}
+
+		try {
+
+			if (weekCommitActivityList == null || weekCommitActivityList.isEmpty()) {
+				Optional<CommitActivity> data = commitActiviryRepository.findById(collection_id);
+				System.out.println(data);
+				weekCommitActivityList = data.get().getData();
+
+				if (!data.isPresent()) {
+					return new ResponseDTO(null, "error", 0, "No records in DB");
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println("cant retrive data for commit_activity table in DB : " + e);
+			return new ResponseDTO(null, "error", 0, e.getMessage());
+		}
+
 		ArrayList<WeekCommitActivitySummaryDTO> weekCommitActivitySummaryDTOList = new ArrayList<>();
 
 		DecimalFormat df = new DecimalFormat("#.##");
@@ -75,7 +148,7 @@ public class GitActivityService {
 				WeekCommitActivitySummaryDTO weekCommitActivitySummaryDTO = new WeekCommitActivitySummaryDTO();
 				weekCommitActivitySummaryDTO.setOwnerId(owner);
 				weekCommitActivitySummaryDTO.setRepoId(repo);
-				weekCommitActivitySummaryDTO.setWeekId(String.valueOf(new Date((long)weekID*1000)));
+				weekCommitActivitySummaryDTO.setWeekId(String.valueOf(new Date((long) weekID * 1000)));
 				weekCommitActivitySummaryDTO.setAdditionCount(String.valueOf(addition));
 				weekCommitActivitySummaryDTO.setDeletionCount(String.valueOf(deletion));
 				if (addition != 0) {

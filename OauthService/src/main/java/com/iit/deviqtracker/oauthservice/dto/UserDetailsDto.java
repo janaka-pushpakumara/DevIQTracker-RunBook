@@ -11,5 +11,4 @@ public class UserDetailsDto {
 	private String username;
 	private String password;
 	private String token;
-
 }
