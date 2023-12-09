@@ -16,6 +16,9 @@ on:
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: UserService
 
     runs-on: ubuntu-latest
 
@@ -28,7 +31,6 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Build with Maven
-      working-directory: UserService
       run: mvn clean install
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
