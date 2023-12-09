@@ -39,7 +39,7 @@ jobs:
         tags: latest
         registry: docker.io
         context: .
-        dockerfile: /UserService/Dockerfile
+        dockerfile: ./UserService/Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Debug
