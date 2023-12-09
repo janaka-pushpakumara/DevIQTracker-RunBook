@@ -28,6 +28,6 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Build with Maven
-      working-directory: /UserService
+      working-directory: UserService
       run: mvn clean install
       #run: mvn clean install --file UserService/pom.xml
