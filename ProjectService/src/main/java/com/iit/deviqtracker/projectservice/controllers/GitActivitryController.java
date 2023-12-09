@@ -5,10 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.iit.deviqtracker.projectservice.dto.common.ResponseDTO;
 import com.iit.deviqtracker.projectservice.dto.common.SummaryDTO;
@@ -23,13 +20,13 @@ public class GitActivitryController {
 	
 
 	@GetMapping("/dashboard/{owner}/{repo}/week/commit/count")
-	public ResponseDTO weekCommitCountSummary(@PathVariable("owner") String owner, @PathVariable("repo") String repo) {
-		return activityService.handleWeekCommitCountSummary(owner, repo);
+	public ResponseDTO weekCommitCountSummary(@PathVariable("owner") String owner, @PathVariable("repo") String repo, @RequestParam(defaultValue = "false") String refresh) {
+		return activityService.handleWeekCommitCountSummary(owner, repo, refresh);
 	}
 	
 	@GetMapping("/dashboard/{owner}/{repo}/week/commit/activity")
-	public ResponseDTO weekCommitActivitySummary(@PathVariable("owner") String owner, @PathVariable("repo") String repo) {
-		return activityService.handleWeekCommitActivitySummary(owner, repo);
+	public ResponseDTO weekCommitActivitySummary(@PathVariable("owner") String owner, @PathVariable("repo") String repo, @RequestParam(defaultValue = "false") String refresh) {
+		return activityService.handleWeekCommitActivitySummary(owner, repo, refresh);
 	}
 
 }

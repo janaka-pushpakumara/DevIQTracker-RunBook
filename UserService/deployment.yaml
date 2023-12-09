@@ -5,7 +5,7 @@ metadata:
   labels:
     app: userservice
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: userservice
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: userservice
-        image: userservice
-        imagePullPolicy: IfNotPresent
+        image: userservice:3.0
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080

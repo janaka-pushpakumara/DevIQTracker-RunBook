@@ -5,7 +5,7 @@ metadata:
   labels:
     app: gatewayservice
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: gatewayservice
@@ -16,7 +16,22 @@ spec:
     spec:
       containers:
       - name: gatewayservice
-        image: gatewayservice
-        imagePullPolicy: IfNotPresent
+        image: gatewayservice:1.0
+        imagePullPolicy: Never
         ports:
         - containerPort: 9091
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: gatewayservice-svc
+spec:
+  selector:
+    app: gatewayservice
+  ports:
+    - protocol: TCP
+      port: 9091
+      nodePort: 30083
+  type: NodePort

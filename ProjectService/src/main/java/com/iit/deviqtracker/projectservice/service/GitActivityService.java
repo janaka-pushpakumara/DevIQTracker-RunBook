@@ -31,14 +31,16 @@ public class GitActivityService {
 	@Autowired
 	private CommitActiviryRepository commitActiviryRepository;
 
-	public ResponseDTO handleWeekCommitCountSummary(String owner, String repo) {
+	public ResponseDTO handleWeekCommitCountSummary(String owner, String repo, String refresh) {
 
 		String collection_id = owner + repo;
 		GitWeekCommitCountDTO weekCommitCount = null;
 
 		try {
-			
-			weekCommitCount = gitServcie.getWeeklyCommitCount(owner, repo);
+			if(Boolean.valueOf(refresh)){
+				weekCommitCount = gitServcie.getWeeklyCommitCount(owner, repo);
+			}
+
 			if (weekCommitCount != null && !weekCommitCount.getAll().isEmpty()) {
 				// save to db
 				commitCountRepository.save(new CommitCount(collection_id, weekCommitCount));
@@ -102,13 +104,15 @@ public class GitActivityService {
 
 	}
 
-	public ResponseDTO handleWeekCommitActivitySummary(String owner, String repo) {
+	public ResponseDTO handleWeekCommitActivitySummary(String owner, String repo, String refresh) {
 
 		ArrayList<Object> weekCommitActivityList = null;
 		String collection_id = owner + repo;
 
 		try {
-			weekCommitActivityList = gitServcie.getWeeklyCommitActivities(owner, repo);
+			if(Boolean.valueOf(refresh)){
+				weekCommitActivityList = gitServcie.getWeeklyCommitActivities(owner, repo);
+			}
 			if (weekCommitActivityList != null && !weekCommitActivityList.isEmpty()) {
 				// save to db
 				commitActiviryRepository.save(new CommitActivity(collection_id, weekCommitActivityList));

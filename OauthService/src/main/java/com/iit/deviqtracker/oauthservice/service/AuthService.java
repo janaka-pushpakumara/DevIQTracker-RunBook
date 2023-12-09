@@ -45,7 +45,7 @@ public class AuthService {
 	public String getUserCredentialByUsername(String userName) {
 		Optional<UserCredential> user = userCredRepository.findById(userName);
 		System.out.println("USER: " + user);
-		if (!user.isEmpty()) {
+		if (user.isPresent()) {
 			return "user exists.";
 		} else {
 			return "user not exists.";

@@ -1,13 +1,24 @@
 spring:
   application:
-    name: project-service
+    name: projectservice
+  data:
+    mongodb:
+      host: '${MONGO_HOST}'
+      database: '${MONGO_DB}'
+      port: 27017
+
 server:
   port: 9095
+
 eureka:
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:9090/eureka}
+      defaultZone: http://eureka-0.eureka.default.svc.cluster.local:8761/eureka
+      #defaultZone: '${EUREKA_SERVER_ADDRESS}'
+      #defaultZone: '${EUREKA_URI:http://localhost:9090/eureka}'
   instance:
     preferIpAddress: true
+
+

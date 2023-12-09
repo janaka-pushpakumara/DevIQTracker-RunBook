@@ -1,0 +1,38 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: projectservice-svc
+spec:
+  selector:
+    app: projectservice
+  ports:
+    - protocol: TCP
+      port: 9095
+      nodePort: 30081
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: projectservice-deployment
+spec:
+  selector:
+    matchLabels:
+      app: projectservice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: projectservice
+    spec:
+      containers:
+        - name: projectservice
+          image: projectservice:1.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 9095
+          env:
+            - name: MONGO_HOST
+              value: mongodb-service
+            - name: MONGO_DB
+              value: deviqdb

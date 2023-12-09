@@ -1,5 +1,14 @@
 spring:
   application:
-    name: user-service
+    name: userservice
 server:
   port: 8080
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: eureka-0
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-0.eureka.default.svc.cluster.local:8761/eureka

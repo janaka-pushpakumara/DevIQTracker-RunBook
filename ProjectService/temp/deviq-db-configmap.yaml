@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deviqdb-db-config
+data:
+  host: deviqdb-service
+  database: deviqdb
