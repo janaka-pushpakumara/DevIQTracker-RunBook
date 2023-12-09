@@ -38,7 +38,8 @@ jobs:
         image: janakapushpakumara/dev-iq-tracker
         tags: latest
         registry: docker.io
-        dockerfile: Dockerfile.txt
+        context: .
+        dockerfile: Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
