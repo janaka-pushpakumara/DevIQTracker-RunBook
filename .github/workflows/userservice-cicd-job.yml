@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: deiqtracker CI CD Maven Project
+name: User Service CI CD Maven Project
 
 on:
   push:
@@ -15,6 +15,8 @@ on:
       - UserService/**
   pull_request:
     branches: [ "main" ]
+    paths:
+      - UserService/**
 
 jobs:
   build:

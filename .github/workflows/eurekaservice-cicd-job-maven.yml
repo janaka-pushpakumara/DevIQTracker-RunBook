@@ -6,23 +6,23 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Oauth service CI/CD Maven Project
+name: EurekaServer service CI/CD Maven Project
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - OauthService/**
+      - EurekaServer/**
   pull_request:
     branches: [ "main" ]
     paths:
-      - OauthService/**
+      - EurekaServer/**
 
 jobs:
   build:
     defaults:
       run:
-        working-directory: OauthService
+        working-directory: EurekaServer
 
     runs-on: ubuntu-latest
 
@@ -40,10 +40,10 @@ jobs:
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: janakapushpakumara/authservice
+          image: janakapushpakumara/eurekaservice
           tags: latest
           registry: docker.io
-          dockerfile: ./OauthService/Dockerfile
+          dockerfile: ./EurekaServer/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Debug
