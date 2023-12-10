@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice-deployment-green
+  labels:
+    app: userservice
+    env: green
+spec:
+  replicas: 1
+  minReplicas: 1
+  maxReplicas: 10
+  selector:
+    matchLabels:
+      app: userservice
+      env: green
+  template:
+    metadata:
+      labels:
+        app: userservice
+        env: green
+    spec:
+      containers:
+      - name: green
+        image: userservice
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
