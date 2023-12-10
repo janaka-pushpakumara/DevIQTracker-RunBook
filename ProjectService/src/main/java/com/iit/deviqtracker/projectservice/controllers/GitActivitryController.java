@@ -18,12 +18,13 @@ public class GitActivitryController {
 	@Autowired
 	private GitActivityService activityService;
 	
-
+	//get weekly commit
 	@GetMapping("/dashboard/{owner}/{repo}/week/commit/count")
 	public ResponseDTO weekCommitCountSummary(@PathVariable("owner") String owner, @PathVariable("repo") String repo, @RequestParam(defaultValue = "false") String refresh) {
 		return activityService.handleWeekCommitCountSummary(owner, repo, refresh);
 	}
-	
+
+	//get commit activity
 	@GetMapping("/dashboard/{owner}/{repo}/week/commit/activity")
 	public ResponseDTO weekCommitActivitySummary(@PathVariable("owner") String owner, @PathVariable("repo") String repo, @RequestParam(defaultValue = "false") String refresh) {
 		return activityService.handleWeekCommitActivitySummary(owner, repo, refresh);
