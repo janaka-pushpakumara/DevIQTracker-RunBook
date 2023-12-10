@@ -11,6 +11,8 @@ name: deiqtracker CI CD Maven Project
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - UserService/**
   pull_request:
     branches: [ "main" ]
 
