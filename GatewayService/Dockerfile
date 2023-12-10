@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:8-jdk-alpine
 EXPOSE 9091
-ADD target/gatewayservice.jar gatewayservice.jar
+ADD GatewayService/target/gatewayservice.jar gatewayservice.jar
 ENTRYPOINT ["java","-jar","/gatewayservice.jar"]
