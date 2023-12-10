@@ -38,8 +38,7 @@ jobs:
         image: janakapushpakumara/userservice
         tags: latest
         registry: docker.io
-        context: .
-        dockerfile: ./UserService/Dockerfile
+        dockerfile: Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Debug
