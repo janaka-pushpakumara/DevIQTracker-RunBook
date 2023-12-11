@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatewayservice-deployment
+  labels:
+    app: gatewayservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gatewayservice
+      env: green
+  template:
+    metadata:
+      labels:
+        app: gatewayservice
+        env: green
+    spec:
+      containers:
+        - name: gatewayservice
+          image: gatewayservice
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9091

@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: projectservice-svc
+spec:
+  selector:
+    app: projectservice
+    env: blue
+  ports:
+    - protocol: TCP
+      port: 9095
+      nodePort: 30082
+  type: NodePort

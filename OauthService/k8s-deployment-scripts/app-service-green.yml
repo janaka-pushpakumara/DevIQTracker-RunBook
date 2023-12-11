@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: authservice-svc
+spec:
+  selector:
+    app: authservice
+    env: green
+  ports:
+    - protocol: TCP
+      port: 9092
+      nodePort: 30084
+  type: NodePort

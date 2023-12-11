@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: projectservice-deployment
+  labels:
+    app: projectservice
+spec:
+  selector:
+    matchLabels:
+      app: projectservice
+      env: green
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: projectservice
+        env: green
+    spec:
+      containers:
+        - name: projectservice
+          image: projectservice
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9095
+          env:
+            - name: MONGO_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-conf
+                  key: database
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-conf
+                  key: host
