@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: authservice
-          image: authservice
+          image: janakapushpakumara/authservice
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9092
