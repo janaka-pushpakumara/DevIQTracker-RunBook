@@ -4,7 +4,7 @@ metadata:
   name: eureka
 spec:
   serviceName: "eureka"
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: eureka
@@ -27,3 +27,10 @@ spec:
                 configMapKeyRef:
                   name: eureka-cm
                   key: eureka_service_address
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "400Mi"
+            limits:
+              cpu: "150m"
+              memory: "400Mi"

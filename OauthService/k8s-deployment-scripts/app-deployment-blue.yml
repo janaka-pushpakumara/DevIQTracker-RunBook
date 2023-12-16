@@ -5,7 +5,7 @@ metadata:
   labels:
     app: authservice
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: authservice
@@ -24,11 +24,11 @@ spec:
             - containerPort: 9092
           resources:
             requests:
-              cpu: "200m"
-              memory: "500Mi"
+              cpu: "150m"
+              memory: "400Mi"
             limits:
-              cpu: "200m"
-              memory: "500Mi"
+              cpu: "150m"
+              memory: "400Mi"
           env:
             - name: MONGO_DB
               valueFrom:
