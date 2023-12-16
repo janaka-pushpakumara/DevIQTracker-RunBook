@@ -9,7 +9,7 @@ spec:
     matchLabels:
       app: projectservice
       env: green
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
