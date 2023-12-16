@@ -22,6 +22,10 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9092
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "150Mi"
           env:
             - name: MONGO_DB
               valueFrom:
