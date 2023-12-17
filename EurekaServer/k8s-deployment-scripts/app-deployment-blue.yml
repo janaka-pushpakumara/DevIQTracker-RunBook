@@ -29,8 +29,8 @@ spec:
                   key: eureka_service_address
           resources:
             requests:
-              cpu: "150m"
+              cpu: "250m"
               memory: "400Mi"
             limits:
-              cpu: "150m"
+              cpu: "250m"
               memory: "400Mi"
